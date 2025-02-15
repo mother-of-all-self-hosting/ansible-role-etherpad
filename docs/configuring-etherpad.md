@@ -53,7 +53,7 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Set the username and password of database
 
-**Note**: if you use the MDAD Ansible playbook, these settings are not needed as they are specified by default. See its [`group_vars`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
+**Note**: if you use the MDAD Ansible playbook, these settings are not needed as they are specified by default. See its [`matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
 
 Add the following configuration to your `vars.yml` file for the database, which Etherpad is going to use.
 
