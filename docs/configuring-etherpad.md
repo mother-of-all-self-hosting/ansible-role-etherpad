@@ -176,6 +176,19 @@ If you have created an admin user, it is possible to install plugins at the admi
 
 The list of the plugins hosted on npm is available at the [Plugins website](https://static.etherpad.org).
 
+### Use the hashed admin password
+
+The upstream project [advises](https://github.com/ether/etherpad-lite/blob/develop/README.md#secure-your-installation) to store hashed passwords instead of ones in plain text on your configuration file if you have enabled authentication. This is strongly recommended if you are running a production installation.
+
+To do so, you can install [ep_hash_auth plugin](https://www.npmjs.com/package/ep_hash_auth) on the admin interface, generate the hash of your password locally, and replace `etherpad_admin_password` with `etherpad_admin_hash` as below:
+
+```yaml
+etherpad_admin_username: YOUR_USERNAME_HERE
+etherpad_admin_hash: YOUR_HASHED_PASSWORD_HERE
+```
+
+After replacing the variable, you'll need to re-run the installation command.
+
 ### Managing / Deleting old pads
 
 If you want to manage and remove old unused pads from Etherpad, you will first need to create the Etherpad admin user as described above.
