@@ -170,6 +170,12 @@ The Etherpad UI should be available at the specified hostname like `https://exam
 
 Check [the official docs](https://etherpad.org/doc/latest/) and [the wiki at GitHub](https://github.com/ether/etherpad-lite/wiki) for details about how to configure and use Etherpad.
 
+### Install plugins
+
+If you have created an admin user, it is possible to install plugins at the admin interface available at https://example.com/admin/plugins after logging in to the admin user account.
+
+The list of the plugins hosted on npm is available at the [Plugins website](https://static.etherpad.org).
+
 ### Managing / Deleting old pads
 
 If you want to manage and remove old unused pads from Etherpad, you will first need to create the Etherpad admin user as described above.
