@@ -176,7 +176,7 @@ If you have created an admin user, it is possible to install plugins at the admi
 
 The list of the plugins hosted on npm is available at the [Plugins website](https://static.etherpad.org).
 
-### Use the hashed admin password
+### Use a hashed admin password
 
 The upstream project [advises](https://github.com/ether/etherpad-lite/blob/develop/README.md#secure-your-installation) to store hashed passwords instead of ones in plain text on your configuration file if you have enabled authentication. This is strongly recommended if you are running a production installation.
 
