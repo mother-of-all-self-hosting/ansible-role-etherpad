@@ -205,7 +205,7 @@ If you'd like to change the admin user's password, use a tool to change it befor
 
 ## Troubleshooting
 
-As with all other services, you can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu etherpad` (or how you/your playbook named the service, e.g. `matrix-etherpad`).
+You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu etherpad` (or how you/your playbook named the service, e.g. `matrix-etherpad`).
 
 ### Increase logging verbosity
 
