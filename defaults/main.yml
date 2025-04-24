@@ -11,6 +11,7 @@ etherpad_enabled: true
 
 etherpad_identifier: etherpad
 
+# renovate: datasource=docker depName=etherpad/etherpad versioning=semver
 etherpad_version: 2.3.0
 
 etherpad_scheme: https
