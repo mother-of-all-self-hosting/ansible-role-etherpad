@@ -90,7 +90,7 @@
     driver: bridge
     driver_options: "{{ devture_systemd_docker_base_container_networks_driver_options }}"
 
-- name: Ensure Etherpad systemd service installed
+- name: Ensure Etherpad systemd service is present
   ansible.builtin.template:
     src: "{{ role_path }}/templates/systemd/etherpad.service.j2"
     dest: "{{ devture_systemd_docker_base_systemd_path }}/{{ etherpad_identifier }}.service"
