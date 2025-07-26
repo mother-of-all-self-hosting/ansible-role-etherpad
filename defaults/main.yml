@@ -184,7 +184,7 @@ etherpad_framing_enabled: true
 # Database-related configuration fields.
 #
 # Etherpad requires a dedicated database
-etherpad_database_engine: 'postgres'
+etherpad_database_type: 'postgres'
 
 etherpad_database_username: etherpad
 etherpad_database_password: 'some-password'
