@@ -1,10 +1,21 @@
 <!--
+SPDX-FileCopyrightText: 2020 - 2024 MDAD project contributors
+SPDX-FileCopyrightText: 2020 - 2024 Slavi Pantaleev
+SPDX-FileCopyrightText: 2020 Aaron Raimist
+SPDX-FileCopyrightText: 2020 Chris van Dijk
+SPDX-FileCopyrightText: 2020 Dominik Zajac
+SPDX-FileCopyrightText: 2020 Mickaël Cornière
 SPDX-FileCopyrightText: 2021 Béla Becker
-SPDX-FileCopyrightText: 2021 - 2024 Slavi Pantaleev
 SPDX-FileCopyrightText: 2021 pushytoxin
-SPDX-FileCopyrightText: 2022 Jim Myhrberg
-SPDX-FileCopyrightText: 2022 Nikita Chernyi
 SPDX-FileCopyrightText: 2022 felixx9
+SPDX-FileCopyrightText: 2022 François Darveau
+SPDX-FileCopyrightText: 2022 Jim Myhrberg
+SPDX-FileCopyrightText: 2022 Julian Foad
+SPDX-FileCopyrightText: 2022 Nikita Chernyi
+SPDX-FileCopyrightText: 2022 Warren Bailey
+SPDX-FileCopyrightText: 2023 Antonis Christofides
+SPDX-FileCopyrightText: 2023 Felix Stupp
+SPDX-FileCopyrightText: 2023 Pierre 'McFly' Marty
 SPDX-FileCopyrightText: 2024 - 2025 Suguru Hirahara
 
 SPDX-License-Identifier: AGPL-3.0-or-later
@@ -13,6 +24,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 # Setting up Etherpad
 
 This is an [Ansible](https://www.ansible.com/) role which installs [Etherpad](https://etherpad.org), an open source collaborative text editor, to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
+
+See the project's [documentation](https://docs.etherpad.org/) to learn what Etherpad does and why it might be useful to you.
+
+## Prerequisites
+
+To run an Etherpad instance it is necessary to prepare a [Postgres](https://www.postgresql.org) database server.
+
+If you are looking for an Ansible role for it, you can check out [this role (ansible-role-postgres)](https://github.com/mother-of-all-self-hosting/ansible-role-postgres) maintained by the [Mother-of-All-Self-Hosting (MASH)](https://github.com/mother-of-all-self-hosting) team.
 
 ## Adjusting the playbook configuration
 
@@ -38,7 +57,8 @@ etherpad_enabled: true
 
 ### Set the hostname
 
-**Note**: if you use the MDAD Ansible playbook, it installs Etherpad on the `etherpad.` subdomain (`etherpad.example.com`) by default, so this setting is optional.
+>[!NOTE]
+> If you use the MDAD Ansible playbook, it installs Etherpad on the `etherpad.` subdomain (`etherpad.example.com`) by default, so this setting is optional.
 
 To serve Etherpad you need to set the hostname as well. To do so, add the following configuration to your `vars.yml` file. Make sure to replace `example.com` with your own value.
 
@@ -53,7 +73,8 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Set the username and password of database
 
-**Note**: if you use the MDAD Ansible playbook, these settings are not needed as they are specified by default. See its [`matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
+>[!NOTE]
+> If you use the MDAD Ansible playbook, these settings are not needed as they are specified by default. See its [`matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
 
 Add the following configuration to your `vars.yml` file for the database, which Etherpad is going to use.
 
@@ -113,7 +134,8 @@ etherpad_title: YOUR_INSTANCE_NAME_HERE
 
 You can also edit the default text on a new pad with the variable `etherpad_default_pad_text`. To do so, add the following configuration to your `vars.yml` file (adapt to your needs).
 
-**Note**: the whole text (all of its belonging lines) under the variable needs to be indented with 2 spaces.
+>[!NOTE]
+> The whole text (all of its belonging lines) under the variable needs to be indented with 2 spaces.
 
 ```yaml
 etherpad_default_pad_text: |
