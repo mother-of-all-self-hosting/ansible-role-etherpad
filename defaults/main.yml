@@ -176,7 +176,7 @@ etherpad_systemd_required_services_list_default: "{{ [devture_systemd_docker_bas
 etherpad_systemd_required_services_list_auto: []
 etherpad_systemd_required_services_list_custom: []
 
-# List of systemd services that Etherpad systemd service wants
+# List of systemd services that the Etherpad systemd service wants
 etherpad_systemd_wanted_services_list: "{{ etherpad_systemd_wanted_services_list_default + etherpad_systemd_wanted_services_list_auto + etherpad_systemd_wanted_services_list_custom }}"
 etherpad_systemd_wanted_services_list_default: []
 etherpad_systemd_wanted_services_list_auto: []
