@@ -209,7 +209,7 @@ etherpad_configuration_title: 'Etherpad'
 etherpad_configuration_abiword: null
 etherpad_configuration_soffice: null
 etherpad_plugins: []
-etherpad_default_pad_text: |
+etherpad_configuration_defaultpadtext: |
   Welcome to Etherpad!
 
   This pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!

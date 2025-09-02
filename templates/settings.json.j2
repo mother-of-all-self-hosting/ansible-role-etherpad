@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     "port":     {{ etherpad_database_port|to_json }},
     "user":     {{ etherpad_database_username|to_json }}
   },
-  "defaultPadText" : {{ etherpad_default_pad_text|to_json }},
+  "defaultPadText" : {{ etherpad_configuration_defaultpadtext|to_json }},
   "suppressErrorsInPadText": false,
   "requireSession": false,
   "editOnly": false,

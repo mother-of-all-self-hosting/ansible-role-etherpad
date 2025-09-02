@@ -132,13 +132,13 @@ etherpad_configuration_title: YOUR_INSTANCE_NAME_HERE
 
 ### Set the default text (optional)
 
-You can also edit the default text on a new pad with the variable `etherpad_default_pad_text`. To do so, add the following configuration to your `vars.yml` file (adapt to your needs).
+You can also edit the default text on a new pad with the variable `etherpad_configuration_defaultpadtext`. To do so, add the following configuration to your `vars.yml` file (adapt to your needs).
 
 >[!NOTE]
 > The whole text (all of its belonging lines) under the variable needs to be indented with 2 spaces.
 
 ```yaml
-etherpad_default_pad_text: |
+etherpad_configuration_defaultpadtext: |
   Welcome to Etherpad!
 
   This pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!
