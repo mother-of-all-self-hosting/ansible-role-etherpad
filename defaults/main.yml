@@ -204,12 +204,14 @@ etherpad_admin_password: ''
 
 etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }}:{{ etherpad_database_password }}@{{ etherpad_database_hostname }}:{{ etherpad_database_port }}/{{ etherpad_database_name }}'
 
+# Specify plugins to install
+etherpad_plugins: []
+
 # Variables configuring the etherpad
 etherpad_configuration_title: 'Etherpad'
 etherpad_configuration_minify: true
 etherpad_configuration_abiword: null
 etherpad_configuration_soffice: null
-etherpad_plugins: []
 etherpad_configuration_defaultpadtext: |
   Welcome to Etherpad!
 
