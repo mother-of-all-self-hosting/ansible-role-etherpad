@@ -54,6 +54,18 @@
       register: network_deletion_result
       changed_when: etherpad_container_network in network_deletion_result.stdout
 
+    - name: Ensure Etherpad local data path does not exist if empty
+      ansible.builtin.command:
+        cmd: "rmdir {{ etherpad_data_path }}"
+      register: etherpad_data_path_deletion_result
+      changed_when: etherpad_data_path_deletion_result.rc == 0
+
+    - name: Ensure Etherpad base path does not exist if empty
+      ansible.builtin.command:
+        cmd: "rmdir {{ etherpad_base_path }}"
+      register: etherpad_base_path_deletion_result
+      changed_when: etherpad_base_path_deletion_result.rc == 0
+
 - name: Check existence of Etherpad local data path
   ansible.builtin.stat:
     path: "{{ etherpad_data_path }}"
