@@ -1,4 +1,5 @@
-# SPDX-FileCopyrightText: 2023 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2023 - 2024 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2025 Suguru Hirahara
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -28,6 +29,12 @@
     - etherpad_path_prefix
     - etherpad_database_hostname
     - etherpad_container_network
+
+- name: Fail if Etherpad logging level is invalid
+  ansible.builtin.fail:
+    msg: >-
+      etherpad_configuration_loglevel must be 'DEBUG', 'INFO', 'WARN', or 'ERROR'
+  when: "etherpad_configuration_loglevel not in ['DEBUG', 'INFO', 'WARN', 'ERROR']"
 
 - name: Run if Traefik is enabled
   when: etherpad_container_labels_traefik_enabled | bool

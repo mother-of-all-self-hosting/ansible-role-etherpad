@@ -219,6 +219,10 @@ etherpad_configuration_defaultpadtext: |
 
   Get involved with Etherpad at https://etherpad.org
 
+# Specify log level
+# Valid values: DEBUG, INFO, WARN, ERROR
+etherpad_configuration_loglevel: WARN
+
 # Default Etherpad configuration template which covers the generic use case.
 # You can customize it by controlling the various variables inside it.
 #

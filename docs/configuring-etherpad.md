@@ -250,9 +250,6 @@ You can find the logs in [systemd-journald](https://www.freedesktop.org/software
 The default logging level for this component is `WARN`. If you want to increase the verbosity, add the following configuration to your `vars.yml` file and re-run the playbook:
 
 ```yaml
-# Valid values: ERROR, WARN, INFO, DEBUG
-etherpad_configuration_extension_json: |
- {
-  "loglevel": "DEBUG",
- }
+# Valid values: DEBUG, INFO, WARN, ERROR
+etherpad_configuration_loglevel: DEBUG
 ```
