@@ -206,7 +206,7 @@ etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }
 
 # Variables configuring the etherpad
 etherpad_configuration_title: 'Etherpad'
-etherpad_abiword: null
+etherpad_configuration_abiword: null
 etherpad_soffice: null
 etherpad_plugins: []
 etherpad_default_pad_text: |
