@@ -127,7 +127,7 @@ Setting `false` to the variable disallows Etherpad to be embedded on a website w
 The name of the instance is set to "Etherpad" by default. To change it, add the following configuration to your `vars.yml` file (adapt to your needs):
 
 ```yaml
-etherpad_title: YOUR_INSTANCE_NAME_HERE
+etherpad_configuration_title: YOUR_INSTANCE_NAME_HERE
 ```
 
 ### Set the default text (optional)

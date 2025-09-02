@@ -205,7 +205,7 @@ etherpad_admin_password: ''
 etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }}:{{ etherpad_database_password }}@{{ etherpad_database_hostname }}:{{ etherpad_database_port }}/{{ etherpad_database_name }}'
 
 # Variables configuring the etherpad
-etherpad_title: 'Etherpad'
+etherpad_configuration_title: 'Etherpad'
 etherpad_abiword: null
 etherpad_soffice: null
 etherpad_plugins: []

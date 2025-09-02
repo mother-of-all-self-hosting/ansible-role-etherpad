@@ -13,6 +13,7 @@
     - { "old": "etherpad_container_image_name_prefix", "new": "etherpad_container_image_registry_prefix" }
     - { "old": "etherpad_container_src_path", "new": "etherpad_container_image_self_build_src_files_path" }
     - { "old": "etherpad_database_engine", "new": "etherpad_database_type" }
+    - { "old": "etherpad_title", "new": "etherpad_configuration_title" }
 
 - name: Fail if required Etherpad settings not defined
   ansible.builtin.fail:
