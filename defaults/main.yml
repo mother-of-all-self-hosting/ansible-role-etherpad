@@ -189,20 +189,28 @@ etherpad_framing_enabled: true
 
 # Database-related configuration fields.
 #
-# Etherpad requires a dedicated database
-etherpad_database_type: 'postgres'
-
-etherpad_database_username: etherpad
-etherpad_database_password: 'some-password'
-etherpad_database_hostname: ''
+# Also see: https://etherpad.org/doc/latest/#_database and https://www.npmjs.com/package/ueberdb2
+etherpad_database_type: "postgres"
+etherpad_database_mysql_hostname: ""
+etherpad_database_mysql_port: 3306
+etherpad_database_mysql_username: etherpad
+etherpad_database_mysql_password: ""
+etherpad_database_hostname: ""
 etherpad_database_port: 5432
-etherpad_database_name: 'etherpad'
+etherpad_database_username: etherpad
+etherpad_database_password: ""
+etherpad_database_name: "etherpad"
+etherpad_redis_hostname: ""
+etherpad_redis_port: 6379
+etherpad_redis_username: ""
+etherpad_redis_password: ""
+etherpad_redis_database: 0
+etherpad_database_sqlite_path: "/data/db.sqlite"
+etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }}:{{ etherpad_database_password }}@{{ etherpad_database_hostname }}:{{ etherpad_database_port }}/{{ etherpad_database_name }}'
 
 # If a admin username and password is set, the /admin web page will be available.
 etherpad_admin_username: ''
 etherpad_admin_password: ''
-
-etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }}:{{ etherpad_database_password }}@{{ etherpad_database_hostname }}:{{ etherpad_database_port }}/{{ etherpad_database_name }}'
 
 # Specify plugins to install
 etherpad_plugins: []

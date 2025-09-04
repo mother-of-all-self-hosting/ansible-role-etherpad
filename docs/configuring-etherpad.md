@@ -29,9 +29,9 @@ See the project's [documentation](https://docs.etherpad.org/) to learn what Ethe
 
 ## Prerequisites
 
-To run an Etherpad instance it is necessary to prepare a [Postgres](https://www.postgresql.org) database server.
+To run an Etherpad instance it is necessary to prepare a database supported by [ueberdb2](https://www.npmjs.com/package/ueberdb2). The role supports [MariaDB](https://mariadb.org), [Postgres](https://www.postgresql.org/), [Redis](https://redis.io/), [SQLite](https://www.sqlite.org/), as well as `memory` (an in-memory ephemeral database). By default it is configured to use Postgres.
 
-If you are looking for an Ansible role for it, you can check out [this role (ansible-role-postgres)](https://github.com/mother-of-all-self-hosting/ansible-role-postgres) maintained by the [Mother-of-All-Self-Hosting (MASH)](https://github.com/mother-of-all-self-hosting) team.
+If you are looking for an Ansible role for MariaDB, Postgres, and Redis, you can check out [ansible-role-postgres](https://github.com/mother-of-all-self-hosting/ansible-role-postgres), [ansible-role-mariadb](https://github.com/mother-of-all-self-hosting/ansible-role-mariadb), and [ansible-role-redis](https://github.com/mother-of-all-self-hosting/ansible-role-redis), all of which are maintained by the [Mother-of-All-Self-Hosting (MASH)](https://github.com/mother-of-all-self-hosting) team. The roles for [KeyDB](https://keydb.dev/) ([ansible-role-keydb](https://github.com/mother-of-all-self-hosting/ansible-role-keydb)) and [Valkey](https://valkey.io/) ([ansible-role-valkey](https://github.com/mother-of-all-self-hosting/ansible-role-valkey)) are available as well.
 
 ## Adjusting the playbook configuration
 
@@ -71,19 +71,66 @@ etherpad_hostname: "example.com"
 
 After adjusting the hostname, make sure to adjust your DNS records to point the Etherpad domain to your server.
 
-### Set the username and password of database
+### Configure database
 
 >[!NOTE]
-> If you use the MDAD Ansible playbook, these settings are not needed as they are specified by default. See its [`matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
+> If you use the MDAD Ansible playbook, any additional configurations are not required as they are specified by default. See its [`matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) for details.
 
-Add the following configuration to your `vars.yml` file for the database, which Etherpad is going to use.
+Etherpad supports databases available with [ueberdb2](https://www.npmjs.com/package/ueberdb2), including MariaDB and Postgres. By default the role is configured to use Postgres for its database.
 
-Make sure to replace `YOUR_DATABASE_USERNAME_HERE` and `YOUR_DATABASE_PASSWORD_HERE` with your own values. **Do not use the default password**, which is set to `some-password` on the `main.yml` file.
+#### MariaDB
+
+To set up MariaDB for the Etherpad instance, add the following configuration to your `vars.yml` file:
+
+```yaml
+etherpad_database_type: mysql
+etherpad_database_mysql_username: YOUR_DATABASE_USERNAME_HERE
+etherpad_database_mysql_password: YOUR_DATABASE_PASSWORD_HERE
+```
+
+Make sure to replace `YOUR_DATABASE_USERNAME_HERE` and `YOUR_DATABASE_PASSWORD_HERE` with your own values.
+
+#### Postgres
+
+To use Postgres, add the following configuration to your `vars.yml` file:
 
 ```yaml
 etherpad_database_username: YOUR_DATABASE_USERNAME_HERE
 etherpad_database_password: YOUR_DATABASE_PASSWORD_HERE
 ```
+
+#### Redis
+
+To use a Redis data-store (or compatible service like Valkey), add the following configuration to your `vars.yml` file:
+
+```yaml
+etherpad_database_type: redis
+etherpad_redis_hostname: YOUR_REDIS_SERVER_HOSTNAME_HERE
+```
+
+Make sure to replace `YOUR_REDIS_SERVER_HOSTNAME_HERE` with the hostname of your Redis (or the compatible) instance.
+
+#### SQLite
+
+To use a SQLite, you need to specify its path by adding the following configuration to your `vars.yml` file:
+
+```yaml
+etherpad_database_type: sqlite
+```
+
+The database file will be created inside the directory mounted with `{{ etherpad_data_path }}`.
+
+#### In-memory database
+
+It is also possible to use an in-memory ephemeral database by adding the following configuration to your `vars.yml` file:
+
+```yaml
+etherpad_database_type: memory
+```
+
+#### Other databases
+
+For other databases like [CouchDB](https://couchdb.apache.org/), add custom configurations to `etherpad_configuration_extension_json`. Refer to [the template settings.json file](https://github.com/ether/etherpad-lite/blob/develop/settings.json.template) for details about necessary settings.
 
 ### Create admin user (optional)
 

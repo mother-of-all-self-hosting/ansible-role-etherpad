@@ -27,7 +27,6 @@
   with_items:
     - etherpad_hostname
     - etherpad_path_prefix
-    - etherpad_database_hostname
     - etherpad_container_network
 
 - name: Fail if Etherpad logging level is invalid
