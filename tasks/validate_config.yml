@@ -1,4 +1,6 @@
-# SPDX-FileCopyrightText: 2023 - 2024 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2023 - 2025 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2023 Julian-Samuel Gebühr
+# SPDX-FileCopyrightText: 2023 MASH project contributors
 # SPDX-FileCopyrightText: 2025 Suguru Hirahara
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
@@ -34,6 +36,32 @@
     msg: >-
       etherpad_configuration_loglevel must be 'DEBUG', 'INFO', 'WARN', or 'ERROR'
   when: "etherpad_configuration_loglevel not in ['DEBUG', 'INFO', 'WARN', 'ERROR']"
+
+- name: Fail if required Etherpad + MySQL integration settings not defined
+  ansible.builtin.fail:
+    msg: >-
+      You need to define a required configuration setting (`{{ item }}`) when `etherpad_database_type` is `mysql`
+  when: "etherpad_database_type == 'mysql' and lookup('vars', item, default='') | string | length == 0"
+  with_items:
+    - etherpad_database_mysql_hostname
+    - etherpad_database_mysql_password
+
+- name: Fail if required Etherpad + Postgres integration settings not defined
+  ansible.builtin.fail:
+    msg: >-
+      You need to define a required configuration setting (`{{ item }}`) when `etherpad_database_type` is `postgres`
+  when: "etherpad_database_type == 'postgres' and lookup('vars', item, default='') | string | length == 0"
+  with_items:
+    - etherpad_database_hostname
+    - etherpad_database_password
+
+- name: Fail if required Etherpad + Redis integration settings not defined
+  ansible.builtin.fail:
+    msg: >-
+      You need to define a required configuration setting (`{{ item }}`) when `etherpad_database_type` is `redis`
+  when: "etherpad_database_type == 'redis' and lookup('vars', item, default='') | string | length == 0"
+  with_items:
+    - etherpad_redis_hostname
 
 - name: Run if Traefik is enabled
   when: etherpad_container_labels_traefik_enabled | bool
