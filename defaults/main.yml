@@ -206,7 +206,6 @@ etherpad_redis_username: ""
 etherpad_redis_password: ""
 etherpad_redis_database: 0
 etherpad_database_sqlite_path: "/data/db.sqlite"
-etherpad_database_connection_string: 'postgres://{{ etherpad_database_username }}:{{ etherpad_database_password }}@{{ etherpad_database_hostname }}:{{ etherpad_database_port }}/{{ etherpad_database_name }}'
 
 # If a admin username and password is set, the /admin web page will be available.
 etherpad_admin_username: ''
