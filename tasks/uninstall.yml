@@ -59,12 +59,14 @@
         cmd: "rmdir {{ etherpad_data_path }}"
       register: etherpad_data_path_deletion_result
       changed_when: etherpad_data_path_deletion_result.rc == 0
+      failed_when: false
 
     - name: Ensure Etherpad base path does not exist if empty
       ansible.builtin.command:
         cmd: "rmdir {{ etherpad_base_path }}"
       register: etherpad_base_path_deletion_result
       changed_when: etherpad_base_path_deletion_result.rc == 0
+      failed_when: false
 
 - name: Check existence of Etherpad local data path
   ansible.builtin.stat:
