@@ -90,7 +90,7 @@
         chdir: "{{ etherpad_container_image_self_build_src_files_path }}"
         cmd: |
           {{ devture_systemd_docker_base_host_command_docker }} build \
-          --build-arg ETHERPAD_PLUGINS="{{ etherpad_plugins|join(' ') }}" \
+          --build-arg ETHERPAD_PLUGINS="{{ etherpad_plugins | join(' ') }}" \
           -t "{{ etherpad_container_image_self_build_name }}" \
           -f Dockerfile \
           .
