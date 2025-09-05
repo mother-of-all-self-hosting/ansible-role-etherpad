@@ -155,7 +155,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     "pageDown": true
   },
   "socketTransportProtocols" : ["websocket", "polling"],
-  "loglevel": "{{ etherpad_configuration_loglevel | to_json }}",
+  "loglevel": {{ etherpad_configuration_loglevel | to_json }},
   "customLocaleStrings": {},
   "enableAdminUITests": false
 }
