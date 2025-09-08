@@ -25,6 +25,14 @@
       owner: "{{ etherpad_user_uid }}"
       group: "{{ etherpad_user_gid }}"
       when: true
+    - path: "{{ etherpad_plugins_path }}"
+      owner: "{{ etherpad_user_uid }}"
+      group: "{{ etherpad_user_gid }}"
+      when: true
+    - path: "{{ etherpad_var_path }}"
+      owner: "{{ etherpad_user_uid }}"
+      group: "{{ etherpad_user_gid }}"
+      when: true
     - path: "{{ etherpad_container_image_self_build_src_files_path }}"
       owner: root
       group: root

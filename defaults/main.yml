@@ -13,6 +13,8 @@ etherpad_identifier: etherpad
 etherpad_base_path: "/{{ etherpad_identifier }}"
 etherpad_config_path: "{{ etherpad_base_path }}/config"
 etherpad_data_path: "{{ etherpad_base_path }}/data"
+etherpad_plugins_path: "{{ etherpad_base_path }}/plugins"
+etherpad_var_path: "{{ etherpad_base_path }}/var"
 
 # renovate: datasource=docker depName=etherpad/etherpad versioning=semver
 etherpad_version: 2.5.0
