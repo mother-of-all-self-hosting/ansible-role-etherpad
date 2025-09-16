@@ -20,6 +20,7 @@
     - { "old": "etherpad_abiword", "new": "etherpad_configuration_abiword" }
     - { "old": "etherpad_soffice", "new": "etherpad_configuration_soffice" }
     - { "old": "etherpad_default_pad_text", "new": "etherpad_configuration_defaultpadtext" }
+    - { "old": "etherpad_http_header_content_permission_policy", "new": "etherpad_http_header_permissions_policy" }
 
 - name: Fail if required Etherpad settings not defined
   ansible.builtin.fail:
