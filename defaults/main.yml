@@ -198,10 +198,10 @@ etherpad_database_mysql_hostname: ""
 etherpad_database_mysql_port: 3306
 etherpad_database_mysql_username: etherpad
 etherpad_database_mysql_password: ""
-etherpad_database_hostname: ""
-etherpad_database_port: 5432
-etherpad_database_username: etherpad
-etherpad_database_password: ""
+etherpad_database_postgres_hostname: ""
+etherpad_database_postgres_port: 5432
+etherpad_database_postgres_username: etherpad
+etherpad_database_postgres_password: ""
 etherpad_database_name: "etherpad"
 etherpad_redis_hostname: ""
 etherpad_redis_port: 6379

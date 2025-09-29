@@ -95,8 +95,8 @@ Make sure to replace `YOUR_DATABASE_USERNAME_HERE` and `YOUR_DATABASE_PASSWORD_H
 To use Postgres, add the following configuration to your `vars.yml` file:
 
 ```yaml
-etherpad_database_username: YOUR_DATABASE_USERNAME_HERE
-etherpad_database_password: YOUR_DATABASE_PASSWORD_HERE
+etherpad_database_postgres_username: YOUR_DATABASE_USERNAME_HERE
+etherpad_database_postgres_password: YOUR_DATABASE_PASSWORD_HERE
 ```
 
 #### Redis
