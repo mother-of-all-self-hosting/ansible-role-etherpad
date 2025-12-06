@@ -80,7 +80,7 @@ etherpad_container_labels_traefik_tls: "{{ etherpad_container_labels_traefik_ent
 etherpad_container_labels_traefik_tls_certResolver: default  # noqa var-naming
 
 etherpad_container_labels_middleware_basic_auth_enabled: false
-# See: https://doc.traefik.io/traefik/middlewares/http/basicauth/#users
+# See: https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/basicauth/
 etherpad_container_labels_middleware_basic_auth_users: ""
 
 # Controls which additional headers to attach to all HTTP requests.
