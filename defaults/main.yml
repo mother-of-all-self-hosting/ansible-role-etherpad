@@ -124,7 +124,9 @@ etherpad_container_labels_additional_labels: ''
 etherpad_container_health_interval: "{{ '5s' if etherpad_container_labels_traefik_enabled else '20s' }}"
 
 # A list of extra arguments to pass to the container
-etherpad_container_extra_arguments: []
+etherpad_container_extra_arguments: "{{ etherpad_container_extra_arguments_auto + etherpad_container_extra_arguments_custom }}"
+etherpad_container_extra_arguments_auto: []
+etherpad_container_extra_arguments_custom: []
 
 # Specifies the value of the `X-XSS-Protection` header
 # Stops pages from loading when they detect reflected cross-site scripting (XSS) attacks.
