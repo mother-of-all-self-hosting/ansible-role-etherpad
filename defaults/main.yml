@@ -114,6 +114,7 @@ etherpad_container_labels_traefik_additional_response_headers_custom: {}
 etherpad_container_labels_additional_labels: "{{ etherpad_container_labels_additional_labels_auto + etherpad_container_labels_additional_labels_custom }}"
 etherpad_container_labels_additional_labels_auto: []
 etherpad_container_labels_additional_labels_custom: []
+
 # Specifies how often the container health-check will run.
 #
 # For Traefik based setups, it's important that the interval is short,
