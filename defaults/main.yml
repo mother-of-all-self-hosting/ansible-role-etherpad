@@ -183,7 +183,7 @@ etherpad_floc_optout_enabled: true
 # See: `etherpad_http_header_strict_transport_security`
 etherpad_hsts_preload_enabled: false
 
-# List of systemd services that Etherpad systemd service depends on.
+# List of systemd services that the Etherpad systemd service depends on.
 etherpad_systemd_required_services_list: "{{ etherpad_systemd_required_services_list_default + etherpad_systemd_required_services_list_auto + etherpad_systemd_required_services_list_custom }}"
 etherpad_systemd_required_services_list_default: "{{ [devture_systemd_docker_base_docker_service_name] if devture_systemd_docker_base_docker_service_name else [] }}"
 etherpad_systemd_required_services_list_auto: []
