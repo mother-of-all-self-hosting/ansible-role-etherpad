@@ -32,6 +32,8 @@
       You need to define a required configuration setting (`{{ item }}`).
   when: "lookup('vars', item, default='') | string | length == 0"
   with_items:
+    - etherpad_user_uid
+    - etherpad_user_gid
     - etherpad_hostname
     - etherpad_path_prefix
     - etherpad_container_network
