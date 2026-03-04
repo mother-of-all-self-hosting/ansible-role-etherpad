@@ -19,8 +19,8 @@ etherpad_var_path: "{{ etherpad_base_path }}/var"
 # renovate: datasource=docker depName=etherpad/etherpad versioning=semver
 etherpad_version: 2.6.1
 
-etherpad_user_uid: ""
-etherpad_user_gid: ""
+etherpad_uid: ""
+etherpad_gid: ""
 
 # The scheme used for serving Etherpad.
 etherpad_scheme: https
