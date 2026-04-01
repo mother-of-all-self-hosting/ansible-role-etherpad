@@ -243,6 +243,10 @@ etherpad_framing_enabled: true
 etherpad_database_type: "postgres"
 
 # Specify database configuration
+etherpad_database_couchdb_hostname: ""
+etherpad_database_couchdb_port: 5984
+etherpad_database_couchdb_username: ""
+etherpad_database_couchdb_password: ""
 etherpad_database_mysql_hostname: ""
 etherpad_database_mysql_port: 3306
 etherpad_database_mysql_username: etherpad
