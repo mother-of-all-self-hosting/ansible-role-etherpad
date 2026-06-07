@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Setting up Etherpad
 
-This is an [Ansible](https://www.ansible.com/) role which installs [Etherpad](https://etherpad.org), an open source collaborative text editor, to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
+This is an [Ansible](https://www.ansible.com/) role which installs [Etherpad](https://etherpad.org), an open-source collaborative text editor, to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
 See the project's [documentation](https://docs.etherpad.org/) to learn what Etherpad does and why it might be useful to you.
 
