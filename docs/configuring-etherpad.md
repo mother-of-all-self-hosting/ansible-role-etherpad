@@ -37,8 +37,7 @@ If you are looking for Ansible roles for them, you can check out these roles mai
 - [ansible-role-mariadb](https://github.com/mother-of-all-self-hosting/ansible-role-mariadb)
 - [ansible-role-postgres](https://github.com/mother-of-all-self-hosting/ansible-role-postgres)
 - [ansible-role-redis](https://github.com/mother-of-all-self-hosting/ansible-role-redis)
-  - [ansible-role-keydb](https://github.com/mother-of-all-self-hosting/ansible-role-keydb)
-  - [ansible-role-valkey](https://github.com/mother-of-all-self-hosting/ansible-role-valkey)
+- [ansible-role-valkey](https://github.com/mother-of-all-self-hosting/ansible-role-valkey)
 
 ## Adjusting the playbook configuration
 
@@ -118,7 +117,7 @@ etherpad_database_postgres_password: YOUR_DATABASE_PASSWORD_HERE
 
 #### Redis
 
-To use a Redis data-store (or compatible service like Valkey), add the following configuration to your `vars.yml` file:
+To use a Redis database (or compatible service like Valkey), add the following configuration to your `vars.yml` file:
 
 ```yaml
 etherpad_database_type: redis
