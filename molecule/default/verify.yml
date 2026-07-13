@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2026 Suguru Hirahara
+# SPDX-FileCopyrightText: 2026 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+---
+- name: Verify Etherpad systemd service
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Wait for Etherpad service to become active (up to 180s)
+      ansible.builtin.systemd:
+        name: etherpad.service
+      register: etherpad_service
+      until: etherpad_service.status.ActiveState == 'active'
+      retries: 36
+      delay: 5
+
+    - name: Assert Etherpad service is active
+      ansible.builtin.assert:
+        that: etherpad_service.status.ActiveState == 'active'
+        fail_msg: "etherpad.service not active ({{ etherpad_service.status.ActiveState }})"
+        success_msg: "etherpad.service is active"
+
+    - name: Wait for Etherpad HTTP endpoint to respond (up to 10m)
+      ansible.builtin.uri:
+        url: "http://localhost:9001/"
+        method: GET
+        status_code: [200, 302]
+        follow_redirects: none
+      register: etherpad_endpoint
+      until: etherpad_endpoint.status in [200, 302]
+      retries: 120
+      delay: 5
+
+    - name: Assert Etherpad HTTP endpoint responds
+      ansible.builtin.assert:
+        that: etherpad_endpoint.status in [200, 302]
+        fail_msg: "Etherpad did not respond as expected ({{ etherpad_endpoint.status | default('no response') }})"
+        success_msg: "Etherpad responded with {{ etherpad_endpoint.status }}"
+
+    - name: Show Etherpad systemd service status summary
+      ansible.builtin.debug:
+        msg:
+          - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
+          - "Etherpad HTTP: {{ etherpad_endpoint.status }}"
