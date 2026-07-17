@@ -33,7 +33,8 @@ provisioner:
         # Variables for Etherpad
         etherpad_uid: 1000
         etherpad_gid: 1000
-        etherpad_hostname: etherpad
+        etherpad_scheme: http
+        etherpad_hostname: localhost
         etherpad_container_labels_traefik_enabled: false
         etherpad_container_http_host_bind_port: 9001
         etherpad_database_type: sqlite
