@@ -23,6 +23,12 @@
         fail_msg: "etherpad.service not active ({{ etherpad_service.status.ActiveState }})"
         success_msg: "etherpad.service is active"
 
+    - name: Retrieve Etherpad service log for debugging
+      when: etherpad_debug_service_enabled | bool
+      ansible.builtin.command:
+        cmd: journalctl -xeu etherpad.service
+      changed_when: false
+
     - name: Wait for Etherpad HTTP endpoint to respond (up to 10m)
       ansible.builtin.uri:
         url: "http://localhost:9001/"
