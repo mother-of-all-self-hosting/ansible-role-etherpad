@@ -49,6 +49,10 @@ Currently these testing scenarios are available:
 
 Tests a standard Etherpad installation.
 
+### `mariadb`
+
+Tests a standard Etherpad installation with the MariaDB database.
+
 ### `postgres`
 
 Tests a standard Etherpad installation with the Postgres database.
