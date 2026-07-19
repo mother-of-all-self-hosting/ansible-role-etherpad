@@ -20,6 +20,7 @@ jobs:
         scenario:
           - default
           - postgres
+          - valkey
       fail-fast: false
 
     env:

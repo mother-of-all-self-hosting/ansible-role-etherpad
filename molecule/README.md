@@ -53,6 +53,10 @@ Tests a standard Etherpad installation.
 
 Tests a standard Etherpad installation with the Postgres database.
 
+### `valkey`
+
+Tests a standard Etherpad installation with the Valkey data-store.
+
 ## Running
 
 By default it is configured to run the scenarios on Ubuntu 26.04.
