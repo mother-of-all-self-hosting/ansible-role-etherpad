@@ -19,6 +19,9 @@ jobs:
           - debian13
         scenario:
           - default
+          - mariadb
+          - postgres
+          - valkey
       fail-fast: false
 
     env:

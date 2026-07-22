@@ -43,11 +43,23 @@ pip3 install -r ./molecule/requirements.txt
 
 ## Scenarios
 
-Currently there is one testing scenario available.
+Currently these testing scenarios are available:
 
 ### `default`
 
 Tests a standard Etherpad installation.
+
+### `mariadb`
+
+Tests a standard Etherpad installation with the MariaDB database.
+
+### `postgres`
+
+Tests a standard Etherpad installation with the Postgres database.
+
+### `valkey`
+
+Tests a standard Etherpad installation with the Valkey data-store.
 
 ## Running
 
