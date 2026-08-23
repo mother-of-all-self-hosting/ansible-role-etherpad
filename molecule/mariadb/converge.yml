@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Suguru Hirahara
 # SPDX-FileCopyrightText: 2026 spatterlight
+# SPDX-FileCopyrightText: 2026 Slavi Pantaleev
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -34,6 +35,18 @@
       ansible.builtin.systemd_service:
         name: mariadb.service
         state: started
+
+    # Etherpad is configured to authenticate API calls with a key, which it
+    # reads from a file bind-mounted from here (see molecule.yml). The file has
+    # to exist before the container is created, because `docker create` refuses
+    # a `--mount type=bind` whose source is missing.
+    - name: Ensure the Etherpad API key file exists
+      ansible.builtin.copy:
+        content: "{{ etherpad_molecule_api_key }}"
+        dest: "{{ etherpad_molecule_api_key_path }}"
+        mode: "0640"
+        owner: "{{ etherpad_uid }}"
+        group: "{{ etherpad_gid }}"
 
     - name: Ensure Etherpad systemd service is started
       ansible.builtin.systemd_service:

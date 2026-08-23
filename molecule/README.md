@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2018-2025 Slavi Pantaleev
+SPDX-FileCopyrightText: 2018-2026 Slavi Pantaleev
 SPDX-FileCopyrightText: 2019-2022 Aaron Raimist
 SPDX-FileCopyrightText: 2019-2023 MDAD project contributors
 SPDX-FileCopyrightText: 2023 QEDeD
@@ -43,15 +43,22 @@ pip3 install -r ./molecule/requirements.txt
 
 ## Scenarios
 
-Currently these testing scenarios are available:
+Currently these testing scenarios are available. They differ only in the database that Etherpad is pointed at; each of them verifies the same things:
+
+- the systemd service becomes active and Etherpad serves its index page, with the title that the role rendered into `settings.json`
+- a pad is created, written to and read back through Etherpad's HTTP API, and then exported through a second, independent read path
+- the pad is then looked for in the database itself, so that a scenario named after a backend cannot pass without Etherpad actually storing pads there
+- the running Etherpad reports the version that `etherpad_version` asks for
+
+Etherpad's HTTP API is unreachable with the shipped default (`authenticationMethod: sso`), so the scenarios switch it to API key authentication and hand it a key through a bind mount. See `molecule.yml` for details.
 
 ### `default`
 
-Tests a standard Etherpad installation.
+Tests a standard Etherpad installation, storing pads in SQLite.
 
 ### `mariadb`
 
-Tests a standard Etherpad installation with the MariaDB database.
+Tests a standard Etherpad installation with the MariaDB database, reached over a UNIX socket.
 
 ### `postgres`
 
