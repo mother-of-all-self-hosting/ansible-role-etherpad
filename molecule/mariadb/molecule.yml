@@ -38,9 +38,9 @@ provisioner:
         etherpad_hostname: localhost
         etherpad_container_labels_traefik_enabled: false
         etherpad_container_http_host_bind_port: 9001
-        etherpad_database_type: mysql
 
         # Variables required for Etherpad to connect to the MariaDB database (via Unix socket)
+        etherpad_database_type: mysql
         etherpad_database_mysql_username: my_database_username
         etherpad_database_mysql_password: my_database_password
         etherpad_database_name: etherpad

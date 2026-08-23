@@ -38,9 +38,9 @@ provisioner:
         etherpad_hostname: localhost
         etherpad_container_labels_traefik_enabled: false
         etherpad_container_http_host_bind_port: 9001
-        etherpad_database_type: postgres
 
         # Variables required for Etherpad to connect to the Postgres database
+        etherpad_database_type: postgres
         etherpad_database_postgres_hostname: "{{ postgres_connection_hostname }}"
         etherpad_database_postgres_port: "{{ postgres_connection_port }}"
         etherpad_database_postgres_username: my_database_username

@@ -38,9 +38,9 @@ provisioner:
         etherpad_hostname: localhost
         etherpad_container_labels_traefik_enabled: false
         etherpad_container_http_host_bind_port: 9001
-        etherpad_database_type: redis
 
         # Variables required for Etherpad to connect to the Valkey data-store
+        etherpad_database_type: redis
         etherpad_redis_hostname: "{{ valkey_identifier }}"
         etherpad_container_additional_networks_custom:
           - "{{ valkey_container_network }}"
