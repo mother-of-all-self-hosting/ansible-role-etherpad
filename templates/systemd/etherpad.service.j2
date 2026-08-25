@@ -38,6 +38,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       --env-file={{ etherpad_base_path }}/env \
       --label-file={{ etherpad_base_path }}/labels \
       --health-interval={{ etherpad_container_health_interval }} \
+      --workdir={{ etherpad_container_process_workdir }} \
       --mount type=bind,src={{ etherpad_config_path }},dst=/config,ro \
       --mount type=bind,src={{ etherpad_data_path }},dst=/data \
       --mount type=bind,src={{ etherpad_plugins_path }},dst=/opt/etherpad-lite/src/plugin_packages \
@@ -49,8 +50,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       {{ arg }} \
       {% endfor %}
       {{ etherpad_container_image_self_build_name if etherpad_container_image_self_build else etherpad_container_image }} \
-      pnpm run prod \
-        --settings /config/settings.json
+      {{ etherpad_container_process_command }}
 
 {% for network in etherpad_container_additional_networks %}
 ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} network connect {{ network }} {{ etherpad_identifier }}
