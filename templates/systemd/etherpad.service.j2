@@ -29,7 +29,6 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       --user={{ etherpad_uid }}:{{ etherpad_gid }} \
       --cap-drop=ALL \
       --read-only \
-      --tmpfs=/tmp:rw,noexec,nosuid,size={{ etherpad_container_tmpfs_tmp_size }} \
       --network={{ etherpad_container_network }} \
       {% if etherpad_container_http_host_bind_port %}
       -p {{ etherpad_container_http_host_bind_port }}:{{ etherpad_container_http_port }} \
@@ -48,6 +47,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       {% if etherpad_database_type == 'mysql' and etherpad_database_mysql_socket_enabled and etherpad_database_mysql_socket_path_host != '' %}
       --mount type=bind,src={{ etherpad_database_mysql_socket_path_host }},dst={{ etherpad_database_mysql_socket_path_container }} \
       {% endif %}
+      --tmpfs=/tmp:rw,noexec,nosuid,size={{ etherpad_container_tmpfs_tmp_size }} \
       {% for arg in etherpad_container_extra_arguments %}
       {{ arg }} \
       {% endfor %}
