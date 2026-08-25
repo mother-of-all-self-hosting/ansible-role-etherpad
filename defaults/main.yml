@@ -333,9 +333,9 @@ etherpad_admin_password: ""
 etherpad_plugins: []
 
 # Variables configuring the etherpad
-etherpad_configuration_title: 'Etherpad'
+etherpad_configuration_title: "Etherpad"
 etherpad_configuration_minify: true
-etherpad_configuration_soffice: null
+etherpad_configuration_soffice:
 etherpad_configuration_defaultpadtext: |
   Welcome to Etherpad!
 
@@ -358,7 +358,7 @@ etherpad_configuration_iplogging: anonymous
 # so tiers above `notify` are not applied even if requested.
 # The default here is `off`, because this Ansible role (not Etherpad itself)
 # is responsible for upgrading Etherpad.
-etherpad_configuration_updates_tier: 'off'
+etherpad_configuration_updates_tier: "off"
 
 # Controls the `privacy.updateCheck` setting, which controls whether Etherpad
 # performs a periodic version check against an external update server.
@@ -395,7 +395,7 @@ etherpad_configuration_default: "{{ lookup('template', 'templates/settings.json.
 #   }
 #  }
 #
-etherpad_configuration_extension_json: '{}'
+etherpad_configuration_extension_json: "{}"
 
 etherpad_configuration_extension: "{{ etherpad_configuration_extension_json | from_json if etherpad_configuration_extension_json | from_json is mapping else {} }}"
 
