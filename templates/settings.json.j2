@@ -90,7 +90,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     "keyRotationInterval": 86400000,
     "sessionLifetime": 86400000
   },
-  "disableIPlogging": true,
+  "ipLogging": {{ etherpad_configuration_iplogging | to_json }},
   "automaticReconnectionTimeout": 0,
   "scrollWhenFocusLineIsOutOfViewport": {
     "percentage": {

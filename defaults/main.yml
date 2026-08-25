@@ -342,6 +342,10 @@ etherpad_configuration_defaultpadtext: |
 # Valid values: DEBUG, INFO, WARN, ERROR
 etherpad_configuration_loglevel: WARN
 
+# Controls what Etherpad writes to its logs about client IP addresses.
+# Valid values: anonymous, truncated, full
+etherpad_configuration_iplogging: anonymous
+
 # Default Etherpad configuration template which covers the generic use case.
 # You can customize it by controlling the various variables inside it.
 #
