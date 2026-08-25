@@ -346,6 +346,24 @@ etherpad_configuration_loglevel: WARN
 # Valid values: anonymous, truncated, full
 etherpad_configuration_iplogging: anonymous
 
+# Controls the `updates.tier` setting, which configures Etherpad's self-update subsystem.
+# Valid values: off, notify, manual, auto, autonomous
+#
+# Container-based installations are read-only from Etherpad's point of view,
+# so tiers above `notify` are not applied even if requested.
+# The default here is `off`, because this Ansible role (not Etherpad itself)
+# is responsible for upgrading Etherpad.
+etherpad_configuration_updates_tier: 'off'
+
+# Controls the `privacy.updateCheck` setting, which controls whether Etherpad
+# performs a periodic version check against an external update server.
+# This role disables it by default, because upgrades are managed by the role.
+etherpad_configuration_privacy_updatecheck: false
+
+# Controls the `privacy.pluginCatalog` setting, which powers the plugin browser in the admin UI.
+# When disabled, manual plugin installation (see `etherpad_plugins`) still works.
+etherpad_configuration_privacy_plugincatalog: true
+
 # Default Etherpad configuration template which covers the generic use case.
 # You can customize it by controlling the various variables inside it.
 #

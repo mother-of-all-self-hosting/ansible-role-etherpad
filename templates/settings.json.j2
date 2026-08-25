@@ -167,6 +167,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     "pageDown": true
   },
   "socketTransportProtocols" : ["websocket", "polling"],
+  "updates": {
+    "tier": {{ etherpad_configuration_updates_tier | to_json }}
+  },
+  "privacy": {
+    "updateCheck": {{ etherpad_configuration_privacy_updatecheck | to_json }},
+    "pluginCatalog": {{ etherpad_configuration_privacy_plugincatalog | to_json }}
+  },
   "loglevel": {{ etherpad_configuration_loglevel | to_json }},
   "customLocaleStrings": {},
   "enableAdminUITests": false

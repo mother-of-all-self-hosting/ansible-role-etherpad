@@ -54,6 +54,13 @@
       etherpad_configuration_iplogging must be 'anonymous', 'truncated', or 'full'
   when: "etherpad_configuration_iplogging not in ['anonymous', 'truncated', 'full']"
 
+- name: Fail if Etherpad updates tier is invalid
+  ansible.builtin.fail:
+    msg: >-
+      etherpad_configuration_updates_tier must be 'off', 'notify', 'manual', 'auto', or 'autonomous'.
+      Note that `off` must be quoted ('off'), because unquoted `off` means `false` in YAML.
+  when: "etherpad_configuration_updates_tier not in ['off', 'notify', 'manual', 'auto', 'autonomous']"
+
 - name: Run if Etherpad + MySQL integration is enabled
   when: etherpad_database_type == 'mysql'
   block:
