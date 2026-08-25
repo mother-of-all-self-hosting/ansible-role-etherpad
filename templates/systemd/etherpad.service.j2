@@ -28,6 +28,8 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       --log-driver=none \
       --user={{ etherpad_uid }}:{{ etherpad_gid }} \
       --cap-drop=ALL \
+      --read-only \
+      --tmpfs=/tmp:rw,noexec,nosuid,size={{ etherpad_container_tmpfs_tmp_size }} \
       --network={{ etherpad_container_network }} \
       {% if etherpad_container_http_host_bind_port %}
       -p {{ etherpad_container_http_host_bind_port }}:{{ etherpad_container_http_port }} \

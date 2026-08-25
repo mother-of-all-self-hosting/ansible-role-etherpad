@@ -152,6 +152,11 @@ etherpad_container_labels_additional_labels_custom: []
 # For non-Traefik setups, we use the default healthcheck interval (20s) to decrease overhead.
 etherpad_container_health_interval: "{{ '5s' if etherpad_container_labels_traefik_enabled else '20s' }}"
 
+# Specify the size of the container's /tmp tmpfs volume.
+# Etherpad needs a writable /tmp for its runtime (tsx) compile cache and for pad import/export,
+# so this should comfortably exceed the maximum import file size (see `importMaxFileSize`).
+etherpad_container_tmpfs_tmp_size: 128m
+
 # A list of extra arguments to pass to the container (`docker create` command)
 etherpad_container_extra_arguments: "{{ etherpad_container_extra_arguments_auto + etherpad_container_extra_arguments_custom }}"
 etherpad_container_extra_arguments_auto: []
