@@ -330,7 +330,6 @@ etherpad_plugins: []
 # Variables configuring the etherpad
 etherpad_configuration_title: 'Etherpad'
 etherpad_configuration_minify: true
-etherpad_configuration_abiword: null
 etherpad_configuration_soffice: null
 etherpad_configuration_defaultpadtext: |
   Welcome to Etherpad!
