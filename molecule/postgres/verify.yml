@@ -180,7 +180,7 @@
       ansible.builtin.assert:
         that: etherpad_api_get_text.json.data.text == (etherpad_molecule_pad_text ~ '\n')
         fail_msg: >-
-          The pad holds {{ etherpad_api_get_text.json.data.text | default('nothing') | to_json }},
+          The pad holds {{ etherpad_api_get_text.json.data.text | default('none') | to_json }},
           expected {{ (etherpad_molecule_pad_text ~ '\n') | to_json }}
         success_msg: "The pad text was written to and read back from the database"
 
