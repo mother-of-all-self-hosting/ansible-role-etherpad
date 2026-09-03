@@ -293,12 +293,12 @@
     - name: Show the Etherpad verification summary
       ansible.builtin.debug:
         msg:
-          - "systemd: {{ etherpad_service.status.ActiveState }}"
-          - "index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
-          - "API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
-          - "pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
-          - "pad export: HTTP {{ etherpad_pad_export.status }}"
-          - "ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
-          - "database backend: SQLite at {{ etherpad_molecule_base_path }}/data/db.sqlite"
+          - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
           - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
+          - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
+          - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
+          - "Etherpad pad export: HTTP {{ etherpad_pad_export.status }}"
+          - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
+          - "Etherpad database backend: SQLite at {{ etherpad_molecule_base_path }}/data/db.sqlite"
+          - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
           - "Etherpad API version: {{ etherpad_api_version.json.currentVersion }}"
