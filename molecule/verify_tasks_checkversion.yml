@@ -5,16 +5,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-# Tying the running version to `etherpad_version` is what makes this
-# scenario a real test of the version that Renovate bumps: a bump that
-# produces an unusable image cannot pass here.
-#
 # Etherpad exposes no application version over HTTP: `/api` reports the
 # version of the API contract (asserted separately below), the `Server`
 # header carries a git commit hash, and /stats has no version at all. The
-# application's own package manifest is read instead. The docker CLI is
-# invoked directly, because the lint environment used in CI has no
-# collections beyond ansible-core available.
+# application's own package manifest is read instead.
 - name: Read the version of the running Etherpad
   ansible.builtin.command:
     cmd: docker exec {{ etherpad_defaults.etherpad_identifier }} cat /opt/etherpad-lite/src/package.json
