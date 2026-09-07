@@ -13,21 +13,27 @@
     file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
     name: etherpad_defaults
 
-- name: Wait for Etherpad service to become active (up to 180s)
-  ansible.builtin.systemd:
+- name: Wait for the Etherpad systemd service to become active (up to 180s)
+  ansible.builtin.systemd_service:
     name: etherpad.service
   register: etherpad_service
   until: etherpad_service.status.ActiveState == 'active'
   retries: 36
   delay: 5
+  # So that giving up is reported by the assertion below rather than as a
+  # wall of systemd unit properties.
+  failed_when: false
 
-- name: Assert Etherpad service is active
+# `Restart=always` in the systemd unit means that even a container which crashes
+# and gets restarted reads as active here, so this is a precondition rather than
+# a result.
+- name: Assert the Etherpad systemd service is active
   ansible.builtin.assert:
     that: etherpad_service.status.ActiveState == 'active'
-    fail_msg: "etherpad.service not active ({{ etherpad_service.status.ActiveState }})"
+    fail_msg: "etherpad.service is not active ({{ etherpad_service.status.ActiveState }})"
     success_msg: "etherpad.service is active"
 
-- name: Retrieve Etherpad service log for debugging
+- name: Retrieve the Etherpad systemd service log for debugging
   when: etherpad_debug_service_enabled | bool
   ansible.builtin.command:
     cmd: journalctl -xeu etherpad.service
