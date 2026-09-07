@@ -25,7 +25,7 @@
 # of Etherpad 2.7.2), which is versioned independently of Etherpad itself.
 # It is asserted because the round-trip above is made against `/api/1/...`,
 # so the API this scenario exercises has to be one Etherpad announces.
-- name: Query the Etherpad API version
+- name: Query the version of the Etherpad API
   ansible.builtin.uri:
     url: "{{ etherpad_verify_base_url }}/api"
     method: GET
