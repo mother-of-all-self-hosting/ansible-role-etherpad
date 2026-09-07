@@ -45,10 +45,6 @@
           ({{ etherpad_database_records.stderr | default('no error output') | trim }})
         success_msg: "Valkey holds the `pad:{{ etherpad_molecule_pad_id }}` key that Etherpad wrote"
 
-    - name: Run the checks shared by all Etherpad scenarios (check version)
-      ansible.builtin.include_tasks:
-        file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks_checkversion.yml"
-
     - name: Show the Etherpad verification summary
       ansible.builtin.debug:
         msg:

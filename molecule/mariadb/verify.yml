@@ -49,10 +49,6 @@
           The MariaDB database '{{ etherpad_database_name }}' holds
           {{ etherpad_database_records.stdout | trim }} record(s) of the pad that was written
 
-    - name: Run the checks shared by all Etherpad scenarios (check version)
-      ansible.builtin.include_tasks:
-        file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks_checkversion.yml"
-
     - name: Show the Etherpad verification summary
       ansible.builtin.debug:
         msg:

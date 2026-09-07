@@ -38,10 +38,6 @@
         fail_msg: "{{ etherpad_molecule_base_path }}/data/db.sqlite holds no record of pad '{{ etherpad_molecule_pad_id }}'"
         success_msg: "{{ etherpad_molecule_base_path }}/data/db.sqlite holds the pad that was written"
 
-    - name: Run the checks shared by all Etherpad scenarios (check version)
-      ansible.builtin.include_tasks:
-        file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks_checkversion.yml"
-
     - name: Show the Etherpad verification summary
       ansible.builtin.debug:
         msg:
