@@ -81,13 +81,13 @@
     method: GET
     status_code: [200]
     return_content: true
-  register: etherpad_api_version
+  register: etherpad_api_version_reported
 
 - name: Assert Etherpad announces an API version covering the calls made above
   ansible.builtin.assert:
-    that: etherpad_api_version.json.currentVersion is version('1.0.0', '>=')
-    fail_msg: "Unexpected /api payload: {{ etherpad_api_version.json | default('no payload') }}"
-    success_msg: "Etherpad announces API version {{ etherpad_api_version.json.currentVersion }}"
+    that: etherpad_api_version_reported.json.currentVersion is version('1.0.0', '>=')
+    fail_msg: "Unexpected /api payload: {{ etherpad_api_version_reported.json | default('no payload') }}"
+    success_msg: "Etherpad announces API version {{ etherpad_api_version_reported.json.currentVersion }}"
 
 # `go2Name` and the `padname` input make up the pad-opening form of
 # Etherpad's own index page, so a stray reverse proxy or error page cannot

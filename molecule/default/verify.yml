@@ -49,4 +49,4 @@
           - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
           - "Etherpad database backend: SQLite at {{ etherpad_molecule_base_path }}/data/db.sqlite"
           - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
-          - "Etherpad API version: {{ etherpad_api_version.json.currentVersion }}"
+          - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
