@@ -36,7 +36,7 @@
 - name: Retrieve the Etherpad systemd service log for debugging
   when: etherpad_debug_service_enabled | bool
   ansible.builtin.command:
-    cmd: journalctl -xeu etherpad.service
+    cmd: journalctl --no-pager --output=cat --unit=etherpad.service
   changed_when: false
 
 # Etherpad refuses to run at all when it cannot reach its database: it logs
