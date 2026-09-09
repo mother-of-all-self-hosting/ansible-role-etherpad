@@ -16,49 +16,49 @@
   tasks:
     - name: Verify that Etherpad works
       block:
-    - name: Run the checks shared by all Etherpad scenarios
-      ansible.builtin.include_tasks:
-        file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks.yml"
+        - name: Run the checks shared by all Etherpad scenarios
+          ansible.builtin.include_tasks:
+            file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks.yml"
 
-    # A scenario named after a data-store is no proof that the application
-    # ended up using it, so the pad is looked for in Valkey itself. ueberdb
-    # flushes writes in the background, hence the retries. The docker CLI is
-    # invoked directly, because the lint environment used in CI has no
-    # collections beyond ansible-core available.
-    - name: Look for the pad key in the Valkey keyspace
-      ansible.builtin.command:
-        cmd: >-
-          docker exec {{ valkey_identifier | default('valkey') }}
-          valkey-cli -n {{ etherpad_redis_database | default(0) }}
-          EXISTS pad:{{ etherpad_molecule_pad_id }}
-      register: etherpad_database_records
-      changed_when: false
-      failed_when: false
-      until: etherpad_database_records.rc == 0 and (etherpad_database_records.stdout | trim) == '1'
-      retries: 12
-      delay: 5
+        # A scenario named after a data-store is no proof that the application
+        # ended up using it, so the pad is looked for in Valkey itself. ueberdb
+        # flushes writes in the background, hence the retries. The docker CLI is
+        # invoked directly, because the lint environment used in CI has no
+        # collections beyond ansible-core available.
+        - name: Look for the pad key in the Valkey keyspace
+          ansible.builtin.command:
+            cmd: >-
+              docker exec {{ valkey_identifier | default('valkey') }}
+              valkey-cli -n {{ etherpad_redis_database | default(0) }}
+              EXISTS pad:{{ etherpad_molecule_pad_id }}
+          register: etherpad_database_records
+          changed_when: false
+          failed_when: false
+          until: etherpad_database_records.rc == 0 and (etherpad_database_records.stdout | trim) == '1'
+          retries: 12
+          delay: 5
 
-    - name: Assert the pad was persisted into Valkey
-      ansible.builtin.assert:
-        that: (etherpad_database_records.stdout | trim) == '1'
-        fail_msg: >-
-          The Valkey keyspace holds no `pad:{{ etherpad_molecule_pad_id }}` key
-          - Etherpad is not storing pads in it
-          ({{ etherpad_database_records.stderr | default('no error output') | trim }})
-        success_msg: "Valkey holds the `pad:{{ etherpad_molecule_pad_id }}` key that Etherpad wrote"
+        - name: Assert the pad was persisted into Valkey
+          ansible.builtin.assert:
+            that: (etherpad_database_records.stdout | trim) == '1'
+            fail_msg: >-
+              The Valkey keyspace holds no `pad:{{ etherpad_molecule_pad_id }}` key
+              - Etherpad is not storing pads in it
+              ({{ etherpad_database_records.stderr | default('no error output') | trim }})
+            success_msg: "Valkey holds the `pad:{{ etherpad_molecule_pad_id }}` key that Etherpad wrote"
 
-    - name: Show the Etherpad verification summary
-      ansible.builtin.debug:
-        msg:
-          - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
-          - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
-          - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
-          - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
-          - "Etherpad pad export: HTTP {{ etherpad_pad_export.status }}"
-          - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
-          - "Etherpad database backend: Valkey, database {{ etherpad_redis_database | default(0) }}"
-          - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
-          - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
+        - name: Show the Etherpad verification summary
+          ansible.builtin.debug:
+            msg:
+              - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
+              - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
+              - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
+              - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
+              - "Etherpad pad export: HTTP {{ etherpad_pad_export.status }}"
+              - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
+              - "Etherpad database backend: Valkey, database {{ etherpad_redis_database | default(0) }}"
+              - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
+              - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
 
       rescue:
         # Whatever went wrong, the reason is almost always in the systemd service log.

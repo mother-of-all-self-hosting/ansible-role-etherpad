@@ -16,52 +16,52 @@
   tasks:
     - name: Verify that Etherpad works
       block:
-    - name: Run the checks shared by all Etherpad scenarios
-      ansible.builtin.include_tasks:
-        file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks.yml"
+        - name: Run the checks shared by all Etherpad scenarios
+          ansible.builtin.include_tasks:
+            file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks.yml"
 
-    # A scenario named after a backend is no proof that the application ended
-    # up using it, so the pad is looked for in Postgres itself. ueberdb flushes
-    # writes in the background, hence the retries. The docker CLI is invoked
-    # directly, because the lint environment used in CI has no collections
-    # beyond ansible-core available.
-    - name: Count the records of the pad in the Postgres database
-      ansible.builtin.command:
-        cmd: >-
-          docker exec -e PGPASSWORD={{ etherpad_database_postgres_password | quote }}
-          {{ postgres_identifier | default('postgres') }}
-          psql -U {{ etherpad_database_postgres_username | quote }} -d {{ etherpad_database_name | quote }}
-          -tAc "SELECT count(*) FROM store WHERE key LIKE 'pad:{{ etherpad_molecule_pad_id }}%'"
-      register: etherpad_database_records
-      changed_when: false
-      failed_when: false
-      until: etherpad_database_records.rc == 0 and (etherpad_database_records.stdout | trim | int) > 0
-      retries: 12
-      delay: 5
+        # A scenario named after a backend is no proof that the application ended
+        # up using it, so the pad is looked for in Postgres itself. ueberdb flushes
+        # writes in the background, hence the retries. The docker CLI is invoked
+        # directly, because the lint environment used in CI has no collections
+        # beyond ansible-core available.
+        - name: Count the records of the pad in the Postgres database
+          ansible.builtin.command:
+            cmd: >-
+              docker exec -e PGPASSWORD={{ etherpad_database_postgres_password | quote }}
+              {{ postgres_identifier | default('postgres') }}
+              psql -U {{ etherpad_database_postgres_username | quote }} -d {{ etherpad_database_name | quote }}
+              -tAc "SELECT count(*) FROM store WHERE key LIKE 'pad:{{ etherpad_molecule_pad_id }}%'"
+          register: etherpad_database_records
+          changed_when: false
+          failed_when: false
+          until: etherpad_database_records.rc == 0 and (etherpad_database_records.stdout | trim | int) > 0
+          retries: 12
+          delay: 5
 
-    - name: Assert the pad was persisted into the Postgres database
-      ansible.builtin.assert:
-        that: (etherpad_database_records.stdout | trim | int) > 0
-        fail_msg: >-
-          The Postgres database '{{ etherpad_database_name }}' holds no record of pad
-          '{{ etherpad_molecule_pad_id }}' - Etherpad is not storing pads in it
-          ({{ etherpad_database_records.stderr | default('no error output') | trim }})
-        success_msg: >-
-          The Postgres database '{{ etherpad_database_name }}' holds
-          {{ etherpad_database_records.stdout | trim }} record(s) of the pad that was written
+        - name: Assert the pad was persisted into the Postgres database
+          ansible.builtin.assert:
+            that: (etherpad_database_records.stdout | trim | int) > 0
+            fail_msg: >-
+              The Postgres database '{{ etherpad_database_name }}' holds no record of pad
+              '{{ etherpad_molecule_pad_id }}' - Etherpad is not storing pads in it
+              ({{ etherpad_database_records.stderr | default('no error output') | trim }})
+            success_msg: >-
+              The Postgres database '{{ etherpad_database_name }}' holds
+              {{ etherpad_database_records.stdout | trim }} record(s) of the pad that was written
 
-    - name: Show the Etherpad verification summary
-      ansible.builtin.debug:
-        msg:
-          - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
-          - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
-          - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
-          - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
-          - "Etherpad pad export: HTTP {{ etherpad_pad_export.status }}"
-          - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
-          - "Etherpad database backend: Postgres, database '{{ etherpad_database_name }}'"
-          - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
-          - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
+        - name: Show the Etherpad verification summary
+          ansible.builtin.debug:
+            msg:
+              - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
+              - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
+              - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
+              - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
+              - "Etherpad pad export: HTTP {{ etherpad_pad_export.status }}"
+              - "Etherpad ueberdb writes to the database: {{ etherpad_stats.json.ueberdb_writesToDbFinished }}"
+              - "Etherpad database backend: Postgres, database '{{ etherpad_database_name }}'"
+              - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
+              - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
 
       rescue:
         # Whatever went wrong, the reason is almost always in the systemd service log.
