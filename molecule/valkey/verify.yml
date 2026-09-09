@@ -14,6 +14,8 @@
     etherpad_verify_base_url: "http://localhost:9001"
 
   tasks:
+    - name: Verify that Etherpad works
+      block:
     - name: Run the checks shared by all Etherpad scenarios
       ansible.builtin.include_tasks:
         file: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/verify_tasks.yml"
@@ -57,3 +59,19 @@
           - "Etherpad database backend: Valkey, database {{ etherpad_redis_database | default(0) }}"
           - "Etherpad API key: a wrong key is rejected, the one from {{ etherpad_molecule_api_key_path }} is accepted"
           - "Etherpad API version: {{ etherpad_api_version_reported.json.currentVersion }}"
+
+      rescue:
+        # Whatever went wrong, the reason is almost always in the systemd service log.
+        - name: Retrieve the Etherpad systemd service log
+          ansible.builtin.command:
+            cmd: journalctl --no-pager --output=cat --unit=etherpad.service
+          register: actual_service_log
+          changed_when: false
+
+        - name: Show the Etherpad systemd service log
+          ansible.builtin.debug:
+            var: actual_service_log.stdout_lines
+
+        - name: Fail because verification did not pass
+          ansible.builtin.fail:
+            msg: "Etherpad verification failed. The systemd service log is printed above."
