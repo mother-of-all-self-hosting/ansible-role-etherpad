@@ -65,12 +65,12 @@
         - name: Retrieve the Etherpad systemd service log
           ansible.builtin.command:
             cmd: journalctl --no-pager --output=cat --unit=etherpad.service
-          register: actual_service_log
+          register: etherpad_service_log
           changed_when: false
 
         - name: Show the Etherpad systemd service log
           ansible.builtin.debug:
-            var: actual_service_log.stdout_lines
+            var: etherpad_service_log.stdout_lines
 
         - name: Fail because verification did not pass
           ansible.builtin.fail:
