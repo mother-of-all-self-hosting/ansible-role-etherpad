@@ -13,13 +13,14 @@
     file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
     name: etherpad_defaults
 
-- name: Wait for the Etherpad systemd service to become active (up to 180s)
+- name: Wait for the Etherpad systemd services to become active (up to 180s each)
   ansible.builtin.systemd_service:
-    name: etherpad.service
-  register: etherpad_service
-  until: etherpad_service.status.ActiveState == 'active'
+    name: "{{ item }}"
+  register: etherpad_services
+  until: etherpad_services.status.ActiveState == 'active'
   retries: 36
   delay: 5
+  loop: "{{ etherpad_verify_units }}"
   # So that giving up is reported by the assertion below rather than as a
   # wall of systemd unit properties.
   failed_when: false
@@ -27,17 +28,20 @@
 # `Restart=always` in the systemd unit means that even a container which crashes
 # and gets restarted reads as active here, so this is a precondition rather than
 # a result.
-- name: Assert the Etherpad systemd service is active
+- name: Assert the Etherpad systemd services are active
   ansible.builtin.assert:
-    that: etherpad_service.status.ActiveState == 'active'
-    fail_msg: "etherpad.service is not active ({{ etherpad_service.status.ActiveState }})"
-    success_msg: "etherpad.service is active"
+    that: etherpad_services.results | map(attribute='status.ActiveState') | unique | list == ['active']
+    fail_msg: >-
+      Not every service is active:
+      {{ dict(etherpad_verify_units | zip(etherpad_services.results | map(attribute='status.ActiveState'))) }}
+    success_msg: "Every systemd service is active"
 
-- name: Retrieve the Etherpad systemd service log for debugging
+- name: Retrieve the Etherpad systemd services log for debugging
   when: etherpad_debug_service_enabled | bool
   ansible.builtin.command:
-    cmd: journalctl --no-pager --output=cat --unit=etherpad.service
+    cmd: "journalctl --no-pager --output=cat --unit={{ item }}"
   changed_when: false
+  loop: "{{ etherpad_verify_units }}"
 
 # Etherpad refuses to run at all when it cannot reach its database: it logs
 # the connection error, exits with status 1 and never opens its HTTP

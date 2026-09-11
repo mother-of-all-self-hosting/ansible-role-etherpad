@@ -13,6 +13,10 @@
   vars:
     etherpad_verify_base_url: "http://localhost:9001"
 
+    etherpad_verify_units:
+      - etherpad.service
+      - valkey.service
+
   tasks:
     - name: Verify that Etherpad works
       block:
@@ -50,7 +54,7 @@
         - name: Show the Etherpad verification summary
           ansible.builtin.debug:
             msg:
-              - "Etherpad systemd: {{ etherpad_service.status.ActiveState }}"
+              - "Etherpad systemd: {% for unit, state in etherpad_verify_units | zip(etherpad_services.results | map(attribute='status.ActiveState')) %}{{ unit }} ({{ state }}){% if not loop.last %}, {% endif %}{% endfor %}"
               - "Etherpad version: {{ (etherpad_package_manifest.stdout | from_json).version }}"
               - "Etherpad index page: HTTP {{ etherpad_index_page.status }}, titled '{{ etherpad_configuration_title }}'"
               - "Etherpad pad round-trip: {{ etherpad_api_get_text.json.data.text | trim | to_json }}"
